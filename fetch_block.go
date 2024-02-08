@@ -4,11 +4,13 @@ import (
 	"context"
 	"fmt"
 	pbcosmos "github.com/graphprotocol/proto-cosmos/pb/sf/cosmos/type/v1"
+	"github.com/mostynb/go-grpc-compression/zstd"
 	pbantelope "github.com/pinax-network/firehose-antelope/types/pb/sf/antelope/type/v1"
 	"github.com/streamingfast/dgrpc"
 	pbbtc "github.com/streamingfast/firehose-bitcoin/pb/sf/bitcoin/type/v1"
 	pbeth "github.com/streamingfast/firehose-ethereum/types/pb/sf/ethereum/type/v2"
 	pbfirehose "github.com/streamingfast/pbgo/sf/firehose/v2"
+	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 	"log"
 	"os"
@@ -36,7 +38,7 @@ func main() {
 		Reference: &pbfirehose.SingleBlockRequest_BlockNumber_{
 			BlockNumber: &pbfirehose.SingleBlockRequest_BlockNumber{Num: 800_000},
 		},
-	})
+	}, grpc.UseCompressor(zstd.Name))
 	if err != nil {
 		log.Panicf("failed to fetch block: %s", err)
 	}

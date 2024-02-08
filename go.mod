@@ -6,6 +6,7 @@ toolchain go1.21.6
 
 require (
 	github.com/graphprotocol/proto-cosmos v0.1.4
+	github.com/mostynb/go-grpc-compression v1.1.17
 	github.com/pinax-network/firehose-antelope v1.0.2
 	github.com/streamingfast/dgrpc v0.0.0-20240112210726-84eefa135588
 	github.com/streamingfast/firehose-bitcoin v1.0.0
