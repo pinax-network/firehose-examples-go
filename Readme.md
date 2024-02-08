@@ -38,9 +38,11 @@ To consume other chains, you will need their respective block definitions. Note 
 blockchain technology will not provide dedicated block definitions (for example, the BSC firehose endpoints do not come
 with their own types but will use the Ethereum ones).
 
-| Blockchain Technology | Block Type   | Go Module                                          |
-|-----------------------|--------------|----------------------------------------------------|
-| Antelope              | `pbantelope` | `github.com/pinax-network/firehose-antelope/types` |
-| Bitcoin               | `pbbtc`      | `github.com/streamingfast/firehose-bitcoin`        |
-| Cosmos                | `pbcosmos`   | `github.com/graphprotocol/proto-cosmos`            |
-| Ethereum              | `pbeth`      | `github.com/streamingfast/firehose-ethereum`       |
+| Blockchain Technology | Go Module                                                             |
+|-----------------------|-----------------------------------------------------------------------|
+| Antelope              | `buf.build/gen/go/pinax/firehose-antelope/protocolbuffers/go`         |
+| Arweave               | `buf.build/gen/go/pinax/firehose-arweave/protocolbuffers/go`          |
+| Bitcoin               | `buf.build/gen/go/streamingfast/firehose-bitcoin/protocolbuffers/go`  |
+| Cosmos                | `github.com/graphprotocol/proto-cosmos`                               |
+| Ethereum              | `buf.build/gen/go/streamingfast/firehose-ethereum/protocolbuffers/go` |
+| Near                  | `buf.build/gen/go/streamingfast/firehose-near/protocolbuffers/go`     |

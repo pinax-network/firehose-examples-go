@@ -4,18 +4,22 @@ import (
 	"context"
 	"encoding/hex"
 	"fmt"
-	pbcosmos "github.com/graphprotocol/proto-cosmos/pb/sf/cosmos/type/v1"
-	"github.com/mostynb/go-grpc-compression/zstd"
-	pbantelope "github.com/pinax-network/firehose-antelope/types/pb/sf/antelope/type/v1"
-	"github.com/streamingfast/dgrpc"
-	pbbtc "github.com/streamingfast/firehose-bitcoin/pb/sf/bitcoin/type/v1"
-	pbeth "github.com/streamingfast/firehose-ethereum/types/pb/sf/ethereum/type/v2"
-	pbfirehose "github.com/streamingfast/pbgo/sf/firehose/v2"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/metadata"
 	"io"
 	"log"
 	"os"
+
+	pbantelope "buf.build/gen/go/pinax/firehose-antelope/protocolbuffers/go/sf/antelope/type/v1"
+	pbarweave "buf.build/gen/go/pinax/firehose-arweave/protocolbuffers/go/sf/arweave/type/v1"
+	pbbtc "buf.build/gen/go/streamingfast/firehose-bitcoin/protocolbuffers/go/sf/bitcoin/type/v1"
+	pbeth "buf.build/gen/go/streamingfast/firehose-ethereum/protocolbuffers/go/sf/ethereum/type/v2"
+	pbnear "buf.build/gen/go/streamingfast/firehose-near/protocolbuffers/go/sf/near/type/v1"
+	pbcosmos "github.com/graphprotocol/proto-cosmos/pb/sf/cosmos/type/v1"
+	pbfirehose "github.com/streamingfast/pbgo/sf/firehose/v2"
+
+	"github.com/mostynb/go-grpc-compression/zstd"
+	"github.com/streamingfast/dgrpc"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/metadata"
 )
 
 const FirehoseETH = "eth.firehose.pinax.network:443"
@@ -59,8 +63,10 @@ func main() {
 
 		var ethBlock pbeth.Block
 		var _ pbantelope.Block
+		var _ pbarweave.Block
 		var _ pbbtc.Block
 		var _ pbcosmos.Block
+		var _ pbnear.Block
 
 		err = block.Block.UnmarshalTo(&ethBlock)
 		if err != nil {
