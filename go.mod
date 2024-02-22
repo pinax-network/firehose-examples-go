@@ -7,6 +7,7 @@ toolchain go1.21.6
 require (
 	buf.build/gen/go/pinax/firehose-antelope/protocolbuffers/go v1.32.0-20240129214250-3af26456175d.1
 	buf.build/gen/go/pinax/firehose-arweave/protocolbuffers/go v1.32.0-20240129212333-eeea46c6211b.1
+	buf.build/gen/go/pinax/firehose-beacon/protocolbuffers/go v1.32.0-20240222133713-ef418478054a.1
 	buf.build/gen/go/streamingfast/firehose-bitcoin/protocolbuffers/go v1.32.0-20231205205020-0d8ce32fe714.1
 	buf.build/gen/go/streamingfast/firehose-ethereum/protocolbuffers/go v1.32.0-20240117171201-d869cb39aae9.1
 	buf.build/gen/go/streamingfast/firehose-near/protocolbuffers/go v1.32.0-20230712201405-0b7e4efe1b9f.1

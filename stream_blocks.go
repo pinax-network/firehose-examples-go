@@ -1,6 +1,7 @@
 package main
 
 import (
+	pbbeacon "buf.build/gen/go/pinax/firehose-beacon/protocolbuffers/go/sf/beacon/type/v1"
 	"context"
 	"encoding/hex"
 	"fmt"
@@ -65,6 +66,7 @@ func main() {
 		var _ pbantelope.Block
 		var _ pbarweave.Block
 		var _ pbbtc.Block
+		var _ pbbeacon.Block
 		var _ pbcosmos.Block
 		var _ pbnear.Block
 

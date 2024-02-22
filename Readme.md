@@ -42,6 +42,7 @@ with their own types but will use the Ethereum ones).
 |-----------------------|-----------------------------------------------------------------------|
 | Antelope              | `buf.build/gen/go/pinax/firehose-antelope/protocolbuffers/go`         |
 | Arweave               | `buf.build/gen/go/pinax/firehose-arweave/protocolbuffers/go`          |
+| Beacon                | `buf.build/gen/go/pinax/firehose-beacon/protocolbuffers/go`           |
 | Bitcoin               | `buf.build/gen/go/streamingfast/firehose-bitcoin/protocolbuffers/go`  |
 | Cosmos                | `github.com/graphprotocol/proto-cosmos`                               |
 | Ethereum              | `buf.build/gen/go/streamingfast/firehose-ethereum/protocolbuffers/go` |

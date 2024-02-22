@@ -2,6 +2,8 @@ buf.build/gen/go/pinax/firehose-antelope/protocolbuffers/go v1.32.0-202401292142
 buf.build/gen/go/pinax/firehose-antelope/protocolbuffers/go v1.32.0-20240129214250-3af26456175d.1/go.mod h1:yeMasUsT1zz3q+EmpOW2889xW/hkpjqaji+LzjJS2rw=
 buf.build/gen/go/pinax/firehose-arweave/protocolbuffers/go v1.32.0-20240129212333-eeea46c6211b.1 h1:1PbumzF+/rC2/8f0BXAouXXioloR//YlntF2sov6bfw=
 buf.build/gen/go/pinax/firehose-arweave/protocolbuffers/go v1.32.0-20240129212333-eeea46c6211b.1/go.mod h1:WGZT6w+onVMkw9K3Zl91nJLoKdpdRNO4zz6pb/zdSBQ=
+buf.build/gen/go/pinax/firehose-beacon/protocolbuffers/go v1.32.0-20240222133713-ef418478054a.1 h1:ZYmnlAFFc2gDwM7xkWvMpQT4wRNj+SrCPMAAUYHzZdQ=
+buf.build/gen/go/pinax/firehose-beacon/protocolbuffers/go v1.32.0-20240222133713-ef418478054a.1/go.mod h1:9oxqeCIJjoXLtLlFmDYmE2Tzk7JeG5BRzotT0NepN4k=
 buf.build/gen/go/streamingfast/firehose-bitcoin/protocolbuffers/go v1.32.0-20231205205020-0d8ce32fe714.1 h1:3c4KvR5I30SfY+ih0fg88T0jQg2o6muL5M6+DN/575I=
 buf.build/gen/go/streamingfast/firehose-bitcoin/protocolbuffers/go v1.32.0-20231205205020-0d8ce32fe714.1/go.mod h1:w5+OnXIEqcA5wBgUa/+4I8MION7xbkC69M3b+3QxJIw=
 buf.build/gen/go/streamingfast/firehose-ethereum/protocolbuffers/go v1.32.0-20240117171201-d869cb39aae9.1 h1:7Itd6bTbYMYpbh3DvYqqUKJ9Sv7z1cO3shrmufB4p38=

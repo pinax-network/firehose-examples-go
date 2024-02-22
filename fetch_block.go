@@ -9,6 +9,7 @@ import (
 
 	pbantelope "buf.build/gen/go/pinax/firehose-antelope/protocolbuffers/go/sf/antelope/type/v1"
 	pbarweave "buf.build/gen/go/pinax/firehose-arweave/protocolbuffers/go/sf/arweave/type/v1"
+	pbbeacon "buf.build/gen/go/pinax/firehose-beacon/protocolbuffers/go/sf/beacon/type/v1"
 	pbbtc "buf.build/gen/go/streamingfast/firehose-bitcoin/protocolbuffers/go/sf/bitcoin/type/v1"
 	pbeth "buf.build/gen/go/streamingfast/firehose-ethereum/protocolbuffers/go/sf/ethereum/type/v2"
 	pbnear "buf.build/gen/go/streamingfast/firehose-near/protocolbuffers/go/sf/near/type/v1"
@@ -55,6 +56,7 @@ func main() {
 	var btcBlock pbbtc.Block
 	var _ pbantelope.Block
 	var _ pbarweave.Block
+	var _ pbbeacon.Block
 	var _ pbcosmos.Block
 	var _ pbeth.Block
 	var _ pbnear.Block
