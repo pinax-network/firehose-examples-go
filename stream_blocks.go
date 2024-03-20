@@ -1,26 +1,25 @@
 package main
 
 import (
-	pbbeacon "buf.build/gen/go/pinax/firehose-beacon/protocolbuffers/go/sf/beacon/type/v1"
 	"context"
 	"encoding/hex"
 	"fmt"
+	"github.com/mostynb/go-grpc-compression/zstd"
+	"google.golang.org/grpc"
 	"io"
 	"log"
 	"os"
 
 	pbantelope "buf.build/gen/go/pinax/firehose-antelope/protocolbuffers/go/sf/antelope/type/v1"
 	pbarweave "buf.build/gen/go/pinax/firehose-arweave/protocolbuffers/go/sf/arweave/type/v1"
+	pbbeacon "buf.build/gen/go/pinax/firehose-beacon/protocolbuffers/go/sf/beacon/type/v1"
 	pbbtc "buf.build/gen/go/streamingfast/firehose-bitcoin/protocolbuffers/go/sf/bitcoin/type/v1"
 	pbeth "buf.build/gen/go/streamingfast/firehose-ethereum/protocolbuffers/go/sf/ethereum/type/v2"
 	pbnear "buf.build/gen/go/streamingfast/firehose-near/protocolbuffers/go/sf/near/type/v1"
 	pbcosmos "github.com/graphprotocol/proto-cosmos/pb/sf/cosmos/type/v1"
 	pbfirehose "github.com/streamingfast/pbgo/sf/firehose/v2"
 
-	"github.com/mostynb/go-grpc-compression/zstd"
-	"github.com/streamingfast/dgrpc"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/metadata"
+	"github.com/streamingfast/firehose-core/firehose/client"
 )
 
 const FirehoseETH = "eth.firehose.pinax.network:443"
@@ -31,20 +30,29 @@ func main() {
 		panic("SUBSTREAMS_API_KEY env variable must be set")
 	}
 
-	conn, err := dgrpc.NewExternalClient(FirehoseETH)
+	// Create a new Firehose stream client to connect to the infrastructure. The parameters set here are set for our
+	// public endpoints.
+	//
+	// In case you are running a Firehose node yourself, you might want to set useInsecureTLSConnection or use
+	// PlainTextConnection depending on whether you are using self-signed TLS certificates or non-TLS connections.
+	fhClient, closeFunc, callOpts, err := client.NewFirehoseClient(FirehoseETH, "", apiKey, false, false)
 	if err != nil {
-		log.Panicf("failed to create external gRPC client: %s", err)
+		log.Panicf("failed to create Firehose client: %s", err)
 	}
-	defer conn.Close()
+	defer closeFunc()
 
-	client := pbfirehose.NewStreamClient(conn)
-	ctx := metadata.AppendToOutgoingContext(context.Background(), "x-api-key", apiKey)
+	// Optionally you can enable gRPC compression
+	callOpts = append(callOpts, grpc.UseCompressor(zstd.Name))
 
-	blocks, err := client.Blocks(ctx, &pbfirehose.Request{
+	// This sends the request to stream blocks, adapt the block parameters to your needs.
+	blocks, err := fhClient.Blocks(context.Background(), &pbfirehose.Request{
 		StartBlockNum:   -1,
 		StopBlockNum:    0,
 		FinalBlocksOnly: false,
-	}, grpc.UseCompressor(zstd.Name))
+		// Instead of sending a start and stop block number, you can also send the cursor you'll receive on each block
+		// to continue exactly where you left off (this is useful for reconnects).
+		// Cursor: "",
+	}, callOpts...)
 	if err != nil {
 		log.Panicf("failed to stream blocks: %s", err)
 	}
@@ -75,11 +83,12 @@ func main() {
 			log.Panicf("failed to decode ETH block: %s", err)
 		}
 
-		fmt.Printf("received block: %d, blocktime: %s, hash: %s, trxs: %d\n",
+		fmt.Printf("received block: %d, blocktime: %s, hash: %s, trxs: %d, cursor: %s\n",
 			ethBlock.Number,
 			ethBlock.Header.Timestamp.AsTime(),
 			hex.EncodeToString(ethBlock.Hash),
 			len(ethBlock.TransactionTraces),
+			block.Cursor,
 		)
 	}
 }

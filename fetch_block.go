@@ -17,9 +17,8 @@ import (
 	pbfirehose "github.com/streamingfast/pbgo/sf/firehose/v2"
 
 	"github.com/mostynb/go-grpc-compression/zstd"
-	"github.com/streamingfast/dgrpc"
+	"github.com/streamingfast/firehose-core/firehose/client"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/metadata"
 )
 
 const FirehoseBTC = "bitcoin.firehose.pinax.network:443"
@@ -30,20 +29,33 @@ func main() {
 		panic("SUBSTREAMS_API_KEY env variable must be set")
 	}
 
-	conn, err := dgrpc.NewExternalClient(FirehoseBTC)
+	// Create a new Firehose stream client to connect to the infrastructure. The parameters set here are set for our
+	// public endpoints.
+	//
+	// In case you are running a Firehose node yourself, you might want to set useInsecureTLSConnection or use
+	// PlainTextConnection depending on whether you are using self-signed TLS certificates or non-TLS connections.
+	fhClient, closeFunc, callOpts, err := client.NewFirehoseFetchClient(FirehoseBTC, "", apiKey, false, false)
 	if err != nil {
-		log.Panicf("failed to create external gRPC client: %s", err)
+		log.Panicf("failed to create Firehose client: %s", err)
 	}
-	defer conn.Close()
+	defer closeFunc()
 
-	client := pbfirehose.NewFetchClient(conn)
-	ctx := metadata.AppendToOutgoingContext(context.Background(), "x-api-key", apiKey)
+	// Optionally you can enable gRPC compression
+	callOpts = append(callOpts, grpc.UseCompressor(zstd.Name))
 
-	block, err := client.Block(ctx, &pbfirehose.SingleBlockRequest{
+	block, err := fhClient.Block(context.Background(), &pbfirehose.SingleBlockRequest{
+		// Request a block by its block number
 		Reference: &pbfirehose.SingleBlockRequest_BlockNumber_{
 			BlockNumber: &pbfirehose.SingleBlockRequest_BlockNumber{Num: 800_000},
 		},
-	}, grpc.UseCompressor(zstd.Name))
+		// Alternatively you can ensure a block hash additionally to the block number
+		//Reference: &pbfirehose.SingleBlockRequest_BlockHashAndNumber_{
+		//	BlockHashAndNumber: &pbfirehose.SingleBlockRequest_BlockHashAndNumber{
+		//		Hash: "00000000000000000002a7c4c1e48d76c5a37902165a270156b7a8d72728a054",
+		//		Num:  800_000,
+		//	},
+		//},
+	}, callOpts...)
 	if err != nil {
 		log.Panicf("failed to fetch block: %s", err)
 	}
