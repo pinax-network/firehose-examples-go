@@ -79,6 +79,8 @@ github.com/sercand/kuberesolver/v5 v5.1.1 h1:CYH+d67G0sGBj7q5wLK61yzqJJ8gLLC8aep
 github.com/sercand/kuberesolver/v5 v5.1.1/go.mod h1:Fs1KbKhVRnB2aDWN12NjKCB+RgYMWZJ294T3BtmVCpQ=
 github.com/streamingfast/dgrpc v0.0.0-20240222213940-b9f324ff4d5c h1:hn5ZPKGtgscYTjz4J+mDEpdWyhnid9B12zqrl+vIRYM=
 github.com/streamingfast/dgrpc v0.0.0-20240222213940-b9f324ff4d5c/go.mod h1:EPtUX/vhRphE37Zo6sDcgD/S3sm5YqXHhxAgzS6Ebwo=
+github.com/streamingfast/firehose-core v1.2.5 h1:tZLjR8BvUQpEBB4fU5ctvXRS+C6BVAuEyPFmd+ugHLc=
+github.com/streamingfast/firehose-core v1.2.5/go.mod h1:AnL0OQJMS6wp+1bpWCJRK78w0jaMHX0VgXLplJKU1d4=
 github.com/streamingfast/logging v0.0.0-20230608130331-f22c91403091 h1:RN5mrigyirb8anBEtdjtHFIufXdacyTi6i4KBfeNXeo=
 github.com/streamingfast/logging v0.0.0-20230608130331-f22c91403091/go.mod h1:VlduQ80JcGJSargkRU4Sg9Xo63wZD/l8A5NC/Uo1/uU=
 github.com/streamingfast/pbgo v0.0.6-0.20240131193313-6b88bc7139db h1:c39xMBgmHgbx1e+cP8KJZ2ziWh9VsjY5C0vDZiytYtw=

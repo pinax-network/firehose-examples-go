@@ -13,7 +13,7 @@ require (
 	buf.build/gen/go/streamingfast/firehose-near/protocolbuffers/go v1.32.0-20230712201405-0b7e4efe1b9f.1
 	github.com/graphprotocol/proto-cosmos v0.1.4
 	github.com/mostynb/go-grpc-compression v1.2.2
-	github.com/streamingfast/firehose-core v1.2.1
+	github.com/streamingfast/firehose-core v1.2.5
 	github.com/streamingfast/pbgo v0.0.6-0.20240131193313-6b88bc7139db
 	google.golang.org/grpc v1.62.0
 )
@@ -60,5 +60,3 @@ require (
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20240221002015-b0ce06bbee7c // indirect
 	google.golang.org/protobuf v1.32.0 // indirect
 )
-
-replace github.com/streamingfast/firehose-core => ../firehose-core
